@@ -1,0 +1,584 @@
+<html lang="">
+<head>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/gifler@0.1.0/gifler.min.js"></script>
+    <style>
+        {
+            margin: 0
+        ;
+            padding: 0
+        ;
+        } /* to remove the top and left whitespace */
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* just to be sure these are full screen*/
+        canvas {
+            display: block;
+            position: absolute;
+        }
+        /* To remove the scrollbars */
+        #main_canvas {
+            z-index: 1;
+        }
+
+        #gif_canvas {
+            z-index: 2;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+<canvas id="main_canvas"></canvas>
+<canvas id="gif_canvas"></canvas>
+<script>
+    let direction = "N";
+    let x = 0;
+    let y = 0;
+    let current_img;
+    let current_state = '0,0 N';
+    let our_game_data = null;
+    let bk_audio;
+    let previousTimestamp = performance.now();
+
+    const compassImage = new Image();
+    compassImage.src = '/assets/radar.png';
+
+    function make_state_key() {
+        return '' + x + ',' + y + ' ' + direction
+    }
+
+    class GifObject {
+        constructor(imageArray, loop = true) {
+            this.imageArray = imageArray;
+            this.currentFrame = 0;
+            this.frameRate = 30; // frames per second
+            this.interval = 1000 / this.frameRate; // interval in milliseconds
+            this.loop = loop;
+            this.intervalId = null;
+        }
+
+        run() {
+            const canvas = document.getElementById('gif_canvas');
+            const ctx = canvas.getContext('2d');
+            const offScreenCanvas = document.createElement('canvas');
+            offScreenCanvas.width = canvas.width;
+            offScreenCanvas.height = canvas.height;
+            const offScreenCtx = offScreenCanvas.getContext('2d');
+            const totalFrames = this.imageArray.length;
+
+            // Clear any existing interval
+            if (this.intervalId) {
+                clearInterval(this.intervalId);
+            }
+
+            // Reset the current frame to start from the beginning
+            this.currentFrame = 0;
+
+            const drawFrame = () => {
+                offScreenCtx.clearRect(0, 0, offScreenCanvas.width, offScreenCanvas.height);
+                const img = new Image();
+                img.src = this.imageArray[this.currentFrame];
+                img.onload = () => {
+                    offScreenCtx.drawImage(img, 0, 0, offScreenCanvas.width, offScreenCanvas.height);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(offScreenCanvas, 0, 0, canvas.width, canvas.height);
+                };
+                this.currentFrame++;
+
+                if (this.currentFrame >= totalFrames) {
+                    if (this.loop) {
+                        this.currentFrame = 0;
+                    } else {
+                        clearInterval(this.intervalId);
+                    }
+                }
+            };
+
+            this.intervalId = setInterval(drawFrame, this.interval);
+        }
+    }
+
+    class WeaponObject {
+        constructor(frameSets, endImage, loop = false) {
+            this.frameSets = frameSets;
+            this.endImage = endImage;
+            this.loop = loop;
+            this.currentFrame = 0;
+            this.frameRate = 30; // frames per second
+            this.interval = 1000 / this.frameRate; // interval in milliseconds
+            this.intervalId = null;
+            this.currentSet = null;
+            this.audio = null;
+        }
+
+        setAnimationSet(setName) {
+            console.log(`Setting animation set to ${setName}`);
+            if (this.frameSets[setName]) {
+                this.currentSet = this.frameSets[setName].images;
+                this.audio = new Audio(this.frameSets[setName].audio);
+                this.currentFrame = 0;
+            } else {
+                console.error(`Animation set ${setName} not found`);
+            }
+        }
+
+        run() {
+            if (!this.currentSet) {
+                console.error('No animation set selected');
+                return;
+            }
+
+            const canvas = document.getElementById('gif_canvas');
+            const ctx = canvas.getContext('2d');
+            const offScreenCanvas = document.createElement('canvas');
+            offScreenCanvas.width = canvas.width;
+            offScreenCanvas.height = canvas.height;
+            const offScreenCtx = offScreenCanvas.getContext('2d');
+            const totalFrames = this.currentSet.length;
+
+            // Clear any existing interval
+            if (this.intervalId) {
+                clearInterval(this.intervalId);
+            }
+
+            // Reset the current frame to start from the beginning
+            this.currentFrame = 0;
+
+            // Play the audio
+            if (this.audio) {
+                this.audio.play();
+            }
+
+            const drawFrame = () => {
+                if (this.currentFrame < totalFrames) {
+                    offScreenCtx.clearRect(0, 0, offScreenCanvas.width, offScreenCanvas.height);
+                    const img = new Image();
+                    img.src = this.currentSet[this.currentFrame];
+                    img.onload = () => {
+                        offScreenCtx.drawImage(img, 0, 0, offScreenCanvas.width, offScreenCanvas.height);
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(offScreenCanvas, 0, 0, canvas.width, canvas.height);
+                    };
+                    this.currentFrame++;
+                } else {
+                    clearInterval(this.intervalId);
+                    this.displayEndImage();
+                }
+            };
+
+            this.intervalId = setInterval(drawFrame, this.interval);
+        }
+
+        displayEndImage() {
+            const canvas = document.getElementById('gif_canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            img.src = this.endImage;
+            img.onload = () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            };
+        }
+    }
+
+    let currentWeapon;
+
+    function changeWeapon(weaponKey) {
+        fetch('weapons.json')
+            .then(response => response.json())
+            .then(data => {
+                const weaponData = data[weaponKey];
+                if (weaponData && weaponData.frameSets) {
+                    currentWeapon = new WeaponObject(weaponData.frameSets, weaponData.endImage, false);
+                    currentWeapon.setAnimationSet('draw'); // Set the initial animation set
+                    currentWeapon.run();
+                } else {
+                    console.error('Invalid weapon data structure:', weaponData);
+                }
+            })
+            .catch(error => console.error('Error loading weapons.json:', error));
+    }
+
+    function draw_on_top_of_canvas(img) {
+        const canvas = document.getElementById('main_canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Capture the current state of the canvas
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+        // Draw the captured image data back onto the canvas
+        ctx.putImageData(imageData, 0, 0);
+
+        // Draw something on top of the current canvas content
+        // ctx.fillStyle = 'rgba(255, 0, 0, 0.5)'; // Semi-transparent red
+        // ctx.fillRect(50, 50, 100, 100); // Draw a rectangle
+        ctx.drawImage(img, 0, 0, window.innerWidth, window.innerHeight);
+    }
+
+    function overlayGifOnCanvasOG(gifSrc, x, y, width, height) {
+        const mainCanvas = document.getElementById('main_canvas');
+        const mainCtx = mainCanvas.getContext('2d');
+
+        // Create an off-screen canvas
+        const offScreenCanvas = document.createElement('canvas');
+        offScreenCanvas.width = mainCanvas.width;
+        offScreenCanvas.height = mainCanvas.height;
+        const offScreenCtx = offScreenCanvas.getContext('2d');
+
+        gifler(gifSrc).get(function (a) {
+            a.animateInCanvas(offScreenCanvas);
+            a.onDrawFrame = function (ctx, frame) {
+                // Clear the off-screen canvas
+                offScreenCtx.clearRect(0, 0, offScreenCanvas.width, offScreenCanvas.height);
+
+                // Draw the GIF frame on the off-screen canvas
+                offScreenCtx.drawImage(frame.buffer, x, y, width, height);
+
+                // Draw the off-screen canvas on the main canvas
+                mainCtx.drawImage(offScreenCanvas, 0, 0);
+            };
+        });
+    }
+
+    function gif_canvas(gif, x, y, width, height) {
+        const c = document.getElementById("gif_canvas");
+        const ctx = c.getContext("2d");
+
+        // Clear the canvas
+        ctx.clearRect(0, 0, c.width, c.height);
+
+        gifler(gif).get(function (a) {
+            a.animateInCanvas(c);
+            a.onDrawFrame = function (ctx, frame) {
+                // Clear the gif canvas
+                ctx.clearRect(0, 0, c.width, c.height);
+
+                // Draw the GIF frame on gif canvas
+                ctx.drawImage(frame.buffer, x, y, width, height);
+            };
+        });
+    }
+
+    function draw_image_with_overlay(baseImg, overlayImg, overlayX, overlayY, overlayWidth, overlayHeight, opacity) {
+        var c = document.getElementById("main_canvas");
+        var ctx = c.getContext("2d");
+
+        // Clear the canvas
+        ctx.clearRect(0, 0, c.width, c.height);
+
+        // Draw the base image
+        ctx.drawImage(baseImg, 0, 0, c.width, c.height);
+
+        // Set the opacity for the overlay image
+        ctx.globalAlpha = opacity;
+
+        // Draw the overlay image at the specified position
+        ctx.drawImage(overlayImg, overlayX, overlayY, overlayWidth, overlayHeight);
+
+        // Reset the global alpha to default
+        ctx.globalAlpha = 1.0;
+    }
+
+    function draw_compass_overlay(baseImg, direction, opacity) {
+        const c = document.getElementById("main_canvas");
+        const compassSize = 100;
+        const compassX = c.width - compassSize - 20;
+        const compassY = 20;
+
+        // Clear the canvas
+        const ctx = c.getContext("2d");
+        ctx.clearRect(0, 0, c.width, c.height);
+
+        // Draw the base image
+        ctx.drawImage(baseImg, 0, 0, c.width, c.height);
+
+        // Rotate the compass image based on the direction
+        ctx.save();
+        ctx.translate(compassX + compassSize / 2, compassY + compassSize / 2);
+        let angle;
+        switch (direction) {
+            case 'N':
+                angle = 0;
+                break;
+            case 'E':
+                angle = Math.PI / 2;
+                break;
+            case 'S':
+                angle = Math.PI;
+                break;
+            case 'W':
+                angle = -Math.PI / 2;
+                break;
+        }
+        ctx.rotate(angle);
+        ctx.globalAlpha = opacity;
+        ctx.drawImage(compassImage, -compassSize / 2, -compassSize / 2, compassSize, compassSize);
+        ctx.restore();
+    }
+
+    function draw_compass(direction) {
+        const canvas = document.getElementById('main_canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Compass position and size
+        const compassSize = 100;
+        const compassX = canvas.width - compassSize - 20;
+        const compassY = 20;
+
+        // Clear previous compass
+        ctx.clearRect(compassX, compassY, compassSize, compassSize);
+
+        // Save the current canvas state
+        ctx.save();
+
+        // Translate to the center of the compass
+        ctx.translate(compassX + compassSize / 2, compassY + compassSize / 2);
+
+        // Rotate the canvas based on the direction
+        let angle;
+        switch (direction) {
+            case 'N':
+                angle = 0;
+                break;
+            case 'E':
+                angle = Math.PI / 2;
+                break;
+            case 'S':
+                angle = Math.PI;
+                break;
+            case 'W':
+                angle = -Math.PI / 2;
+                break;
+        }
+        ctx.rotate(angle);
+
+        // Draw the compass image
+        ctx.drawImage(compassImage, -compassSize / 2, -compassSize / 2, compassSize, compassSize);
+
+        // Restore the canvas state
+        ctx.restore();
+    }
+
+    function move_forward() {
+        let newX = x, newY = y;
+        switch (direction) {
+            case 'N':
+                newY += 1;
+                break;
+            case 'E':
+                newX += 1;
+                break;
+            case 'S':
+                newY -= 1;
+                break;
+            case 'W':
+                newX -= 1;
+                break;
+        }
+        if (our_game_data[`${newX},${newY}`] && our_game_data[`${newX},${newY}`][direction]) {
+            x = newX;
+            y = newY;
+        }
+    }
+
+    function move_backwards() {
+        let newX = x, newY = y;
+        switch (direction) {
+            case 'N':
+                newY -= 1;
+                break;
+            case 'E':
+                newX -= 1;
+                break;
+            case 'S':
+                newY += 1;
+                break;
+            case 'W':
+                newX += 1;
+                break;
+        }
+        if (our_game_data[`${newX},${newY}`] && our_game_data[`${newX},${newY}`][direction]) {
+            x = newX;
+            y = newY;
+        }
+    }
+
+    function turn_left() {
+        switch (direction) {
+            case 'N':
+                direction = 'W'
+                break;
+            case 'W':
+                direction = 'S'
+                break;
+            case 'S':
+                direction = 'E'
+                break;
+            case 'E':
+                direction = 'N'
+                break;
+        }
+        visit_state()
+    }
+
+    function turn_right() {
+        switch (direction) {
+            case 'N':
+                direction = 'E'
+                break;
+            case 'E':
+                direction = 'S'
+                break;
+            case 'S':
+                direction = 'W'
+                break;
+            case 'W':
+                direction = 'N'
+                break;
+        }
+    }
+
+    (function () {
+        const canvas = document.getElementById('main_canvas');
+        // const context = canvas.getContext('2d');
+        const gif_canvas = document.getElementById('gif_canvas');
+
+        // resize the canvas to fill browser window dynamically
+        window.addEventListener('resize', resizeCanvas, false);
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            gif_canvas.width = window.innerWidth;
+            gif_canvas.height = window.innerHeight;
+
+            if (our_game_data)
+                visit_state();
+        }
+
+        resizeCanvas();
+    })();
+
+    function draw_image_on_canvas(img) {
+        const c = document.getElementById("main_canvas");
+        const ctx = c.getContext("2d");
+        current_img = img
+        ctx.drawImage(img, 0, 0, window.innerWidth, window.innerHeight);
+    }
+
+    function visit_state() {
+        console.log(current_state);
+        const [coords, dir] = current_state.split(' ');
+        const baseImg = our_game_data[coords][dir]["img_o"];
+        const compass_opacity = 0.5; // Set the desired opacity value
+        draw_compass_overlay(baseImg, dir, compass_opacity);
+        // gif_canvas("/assets/Shrek_dancing.gif", 0, 0, 100, 100);
+        // draw_on_top_of_canvas(knife);
+    }
+
+    function load_all_imgs() {
+        console.log(our_game_data);
+        for (const coords in our_game_data) {
+            for (const dir in our_game_data[coords]) {
+                if (our_game_data[coords][dir]["img"] != null) {
+                    console.log(`Loading image for ${coords} ${dir}`);
+                    our_game_data[coords][dir]["img_o"] = new Image();
+                    our_game_data[coords][dir]["img_o"].src = our_game_data[coords][dir]["img"];
+                }
+            }
+        }
+
+        // Load weapon frames
+        fetch('weapons.json')
+            .then(response => response.json())
+            .then(data => {
+                for (const weaponKey in data) {
+                    const weaponData = data[weaponKey];
+                    for (const setName in weaponData.frameSets) {
+                        weaponData.frameSets[setName] = weaponData.frameSets[setName].map(src => {
+                            const img = new Image();
+                            img.src = src;
+                            return img;
+                        });
+                    }
+                    const endImg = new Image();
+                    endImg.src = weaponData.endImage;
+                    weaponData.endImage = endImg;
+                }
+            })
+            .catch(error => console.error('Error loading weapons.json:', error));
+    }
+
+    document.addEventListener('keydown', (e) => {
+        switch (e.key) {
+            case "ArrowLeft":
+                turn_left();
+                break;
+            case "ArrowRight":
+                turn_right();
+                break;
+            case "ArrowUp":
+                move_forward();
+                break;
+            case "ArrowDown":
+                move_backwards();
+                break;
+            case "a":
+                turn_left();
+                break;
+            case "d":
+                turn_right();
+                break;
+            case "w":
+                move_forward();
+                break;
+            case "s":
+                move_backwards();
+                break;
+            case "1":
+                changeWeapon('weapon1');
+                break;
+            case "2":
+                changeWeapon('weapon2');
+                break;
+            case "3":
+                changeWeapon('weapon3');
+                break;
+            case "f":
+                if (currentWeapon) {
+                    currentWeapon.setAnimationSet('shoot');
+                    currentWeapon.run();
+                }
+                break;
+            case "r":
+                if (currentWeapon) {
+                    currentWeapon.setAnimationSet('reload');
+                    currentWeapon.run();
+                }
+                break;
+        }
+        current_state = make_state_key();
+        visit_state();
+    });
+
+    $(document).ready(function () {
+        setTimeout(function () {
+
+            $.getJSON("map_def.json", function (data) {
+                console.log(data);
+                our_game_data = data;
+                load_all_imgs();
+                setTimeout(visit_state, 50);
+                changeWeapon('weapon1');
+            });
+        }, 1000);
+
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,660 @@
+{
+  "0,0": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0000.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0001.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0002.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0003.png"
+    }
+  },
+  "0,1": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0007.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0004.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0005.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0006.png"
+    }
+  },
+  "1,1": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0008.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0009.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0010.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0011.png"
+    }
+  },
+  "1,2": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0205.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0206.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0207.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0204.png"
+    }
+  },
+  "1,3": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0013.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0014.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0015.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0012.png"
+    }
+  },
+  "0,3" : {
+    "N": {
+      "img": "/assets/cs_office/cs_office0209.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0210.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0211.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0208.png"
+    }
+  },
+  "-1,3" : {
+    "N": {
+      "img": "/assets/cs_office/cs_office0017.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0018.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0019.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0016.png"
+    }
+  },
+  "-2,3": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0021.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0022.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0023.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0020.png"
+    }
+  },
+  "-3,3": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0181.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0182.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0183.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0180.png"
+    }
+  },
+  "-4,3": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0188.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0189.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0190_modified.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0191.png"
+    }
+  },
+  "-5,3": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0193.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0194_modified.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0195_modified.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0192.png"
+    }
+  },
+  "-4,4": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0252.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0253.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0254_modified.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0255.png"
+    }
+  },
+  "-4,5": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0256.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0257.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0258_modified.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0259.png"
+    }
+  },
+  "-2,2": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0026.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0027.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0024.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0025.png"
+    }
+  },
+  "-2,4": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0028.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0029.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0030.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0031.png"
+    }
+  },
+  "-2,5": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0032.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0033.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0034.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0035.png"
+    }
+  },
+  "-2,6": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0037.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0038.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0039.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0036.png"
+    }
+  },
+  "-2,7": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0217.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0218.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0219.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0216.png"
+    }
+  },
+  "-2,8": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0152.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0153.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0154.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0155.png"
+    }
+  },
+  "-1,8": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0215.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0212.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0213.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0214.png"
+    }
+  },
+  "0,8": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0159.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0156.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0157.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0158.png"
+    }
+  },
+  "0,9": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0160.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0161.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0162.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0163.png"
+    }
+  },
+  "0,7": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0166.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0167.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0164.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0165.png"
+    }
+  },
+  "0,6": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0171.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0168_modified.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0169.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0170.png"
+    }
+  },
+  "1,6": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0175.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0172_modified.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0173.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0174.png"
+    }
+  },
+  "2,6": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0179_modified.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0176_modified.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0177.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0178.png"
+    }
+  },
+  "-3,6": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0041.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0042.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0043.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0040.png"
+    }
+  },
+  "-4,6": {
+      "N": {
+      "img": "/assets/cs_office/cs_office0045.png"
+      },
+      "E": {
+      "img": "/assets/cs_office/cs_office0046.png"
+      },
+      "S": {
+      "img": "/assets/cs_office/cs_office0047_modified.png"
+      },
+      "W": {
+      "img": "/assets/cs_office/cs_office0044.png"
+      }
+  },
+  "-5,6": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0225.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0226.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0227.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0224.png"
+    }
+  },
+  "-6,6": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0049.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0050.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0051.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0048.png"
+    }
+  },
+  "-7,6": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0230.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0231.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0228.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0229.png"
+    }
+  },
+  "-8,6": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0054.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0055.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0052.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0053.png"
+    }
+  },
+  "-8,7": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0244.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0245.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0246.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0247.png"
+    }
+  },
+  "-8,8": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0232.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0233.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0234.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0235.png"
+    }
+  },
+  "-8,9": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0056.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0057.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0058.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0059.png"
+    }
+  },
+  "-8,10": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0063.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0060.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0061.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0062.png"
+    }
+  },
+  "-7,10": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0202.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0203.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0200.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0201.png"
+    }
+  },
+  "-6,10": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0067.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0064.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0065.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0066.png"
+    }
+  },
+  "-6,11": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0236.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0237.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0238.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0239.png"
+    }
+  },
+  "-6,12": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0071.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0068.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0069.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0070.png"
+    }
+  },
+  "-7,12": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0073.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0074.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0075.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0072.png"
+    }
+  },
+  "-6,9": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0079.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0076.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0077.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0078.png"
+    }
+  },
+  "-5,9": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0251_modified.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0248.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0249.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0250.png"
+    }
+  },
+  "-4,9": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0080_modified.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0081.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0082.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0083.png"
+    }
+  },
+  "-4,10": {
+    "N": {
+    "img": "/assets/cs_office/cs_office0084_modified.png"
+    },
+    "E": {
+    "img": "/assets/cs_office/cs_office0085.png"
+    },
+    "S": {
+    "img": "/assets/cs_office/cs_office0086.png"
+    },
+    "W": {
+    "img": "/assets/cs_office/cs_office0087.png"
+    }
+  },
+  "-3,8": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0147_modified.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0144.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0145.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0146.png"
+    }
+  },
+  "-4,8": {
+    "N": {
+      "img": "/assets/cs_office/cs_office0151_modified.png"
+    },
+    "E": {
+      "img": "/assets/cs_office/cs_office0148_modified.png"
+    },
+    "S": {
+      "img": "/assets/cs_office/cs_office0149.png"
+    },
+    "W": {
+      "img": "/assets/cs_office/cs_office0150.png"
+    }
+  }
+}
